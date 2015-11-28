@@ -539,7 +539,7 @@ class User extends Component
         $cookie = new Cookie($this->identityCookie);
         $cookie->value = json_encode([
             $identity->getId(),
-            $identity->getAuthKey(),
+//            $identity->getAuthKey(),
             $duration,
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $cookie->expire = time() + $duration;

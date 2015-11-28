@@ -10,9 +10,9 @@ use Yii;
  */
 class SignupForm extends Model
 {
-    public $username;
-    public $email;
-    public $password;
+    public $nombre;
+    public $usuario;
+    public $contrasena;
 
     /**
      * @inheritdoc
@@ -20,19 +20,30 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['nombre', 'filter', 'filter' => 'trim'],
+            ['nombre', 'required'],
+            ['nombre', 'string', 'min' => 1, 'max' => 128],
 
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['usuario', 'filter', 'filter' => 'trim'],
+            ['usuario', 'required'],
+            ['usuario', 'email'],
+            ['usuario', 'string', 'max' => 128],
+            ['usuario', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este correo ya se encuentra registrado.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['contrasena', 'required'],
+            ['contrasena', 'string', 'min' => 3],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'nombre' => 'Nombre:',
+            'usuario' => 'Correo electronico:',
+            'contrasena' => 'Contraseña:',
         ];
     }
 
@@ -45,10 +56,9 @@ class SignupForm extends Model
     {
         if ($this->validate()) {
             $user = new User();
-            $user->username = $this->username;
-            $user->email = $this->email;
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
+            $user->nombre = $this->nombre;
+            $user->usuario = $this->usuario;
+            $user->contrasena = md5($this->contrasena);
             if ($user->save()) {
                 return $user;
             }

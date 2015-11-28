@@ -9,8 +9,8 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
-    public $password;
+    public $usuario;
+    public $contrasena;
     public $rememberMe = true;
 
     private $_user;
@@ -23,11 +23,23 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['usuario', 'contrasena'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['contrasena', 'validatePassword'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'usuario' => 'Usuario:',
+            'contrasena' => 'Contraseña:',
+            'rememberMe' => 'Recordarme',
         ];
     }
 
@@ -42,7 +54,7 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
+            if (!$user || !$user->validatePassword($this->contrasena)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
@@ -70,7 +82,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername($this->usuario);
         }
 
         return $this->_user;
