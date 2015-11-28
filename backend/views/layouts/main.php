@@ -46,15 +46,15 @@ AppAsset::register($this);
         ];
         $menuItems[] = [
             'label' => 'Usuarios',
-            'url' => ['/site/usuarios'],
+            'url' => ['/usuarios/index'],
         ];
         $menuItems[] = [
             'label' => 'Productos',
-            'url' => ['/site/productos'],
+            'url' => ['/productos/index'],
         ];
         $menuItems[] = [
             'label' => 'Contactenos',
-            'url' => ['/site/contactenos'],
+            'url' => ['/contactenos/index'],
         ];
         $menuItems[] = [
             'label' => 'Salir (' . Yii::$app->user->identity->nombre . ')',
