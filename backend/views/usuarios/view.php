@@ -1,5 +1,6 @@
 <?php
 
+use Yii;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -15,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Borrar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Desea borrar este usuario?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -31,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'nombre',
             'usuario',
-            'contrasena',
-            'imagen',
+            [
+                'label' => 'Perfil',
+                'format' => 'raw',
+                'value' => Html::img('@web/imagenes/' . $model->imagen, ['class' => 'thing', 'alt' => 'perfil']),
+            ],
         ],
     ]) ?>
 

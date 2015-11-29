@@ -111,8 +111,8 @@ class ActionColumn extends Column
         if (!isset($this->buttons['view'])) {
             $this->buttons['view'] = function ($url, $model, $key) {
                 $options = array_merge([
-                    'title' => Yii::t('yii', 'View'),
-                    'aria-label' => Yii::t('yii', 'View'),
+                    'title' => Yii::t('yii', 'Ver'),
+                    'aria-label' => Yii::t('yii', 'Ver'),
                     'data-pjax' => '0',
                 ], $this->buttonOptions);
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
@@ -121,8 +121,8 @@ class ActionColumn extends Column
         if (!isset($this->buttons['update'])) {
             $this->buttons['update'] = function ($url, $model, $key) {
                 $options = array_merge([
-                    'title' => Yii::t('yii', 'Update'),
-                    'aria-label' => Yii::t('yii', 'Update'),
+                    'title' => Yii::t('yii', 'Actualizar'),
+                    'aria-label' => Yii::t('yii', 'Actualizar'),
                     'data-pjax' => '0',
                 ], $this->buttonOptions);
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
@@ -131,9 +131,9 @@ class ActionColumn extends Column
         if (!isset($this->buttons['delete'])) {
             $this->buttons['delete'] = function ($url, $model, $key) {
                 $options = array_merge([
-                    'title' => Yii::t('yii', 'Delete'),
-                    'aria-label' => Yii::t('yii', 'Delete'),
-                    'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                    'title' => Yii::t('yii', 'Borrar'),
+                    'aria-label' => Yii::t('yii', 'Borrar'),
+                    'data-confirm' => Yii::t('yii', 'Desea borrar este item?'),
                     'data-method' => 'post',
                     'data-pjax' => '0',
                 ], $this->buttonOptions);

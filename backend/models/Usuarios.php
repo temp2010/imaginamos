@@ -29,9 +29,11 @@ class Usuarios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'usuario', 'contrasena'], 'required'],
+            [['nombre', 'usuario'], 'required'],
+            [['contrasena', 'imagen'], 'required', 'on' => 'create'],
             [['nombre', 'usuario', 'imagen'], 'string', 'max' => 128],
-            [['contrasena'], 'string', 'max' => 32]
+            [['contrasena'], 'string', 'max' => 32],
+            [['imagen'], 'file', 'extensions' => 'jpg, jpeg, png'],
         ];
     }
 

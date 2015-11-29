@@ -7,6 +7,7 @@ use app\models\Usuarios;
 use backend\models\UsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -62,7 +63,13 @@ class UsuariosController extends Controller
     {
         $model = new Usuarios();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $picture = UploadedFile::getInstance($model, 'imagen');
+            $nombre = uniqid('u', true);
+            $model->contrasena = md5($model->contrasena);
+            $model->imagen = $nombre.'.'.$picture->extension;
+            $picture->saveAs(\Yii::$app->basePath.'/web/imagenes/' . $model->imagen);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -80,8 +87,23 @@ class UsuariosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $picture = UploadedFile::getInstance($model, 'imagen');
+            if ($picture) {
+            	$nombre = uniqid('u', true);
+            	$model->imagen = $nombre.'.'.$picture->extension;
+        	$picture->saveAs(\Yii::$app->basePath.'/web/imagenes/' . $model->imagen);
+            }
+            else {
+                unset($model->imagen);
+            }
+            if ($model->contrasena != '') {
+                $model->contrasena = md5($model->contrasena);
+            }
+            else {
+                unset($model->contrasena);
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

@@ -7,6 +7,7 @@ use app\models\Productos;
 use backend\models\ProductosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -62,7 +63,12 @@ class ProductosController extends Controller
     {
         $model = new Productos();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $picture = UploadedFile::getInstance($model, 'imagen');
+            $nombre = uniqid('p', true);
+            $model->imagen = $nombre.'.'.$picture->extension;
+            $picture->saveAs(\Yii::$app->basePath.'/web/imagenes/' . $model->imagen);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -81,7 +87,17 @@ class ProductosController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $picture = UploadedFile::getInstance($model, 'imagen');
+            if ($picture) {
+            	$nombre = uniqid('p', true);
+            	$model->imagen = $nombre.'.'.$picture->extension;
+        	$picture->saveAs(\Yii::$app->basePath.'/web/imagenes/' . $model->imagen);
+            }
+            else {
+                unset($model->imagen);
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
