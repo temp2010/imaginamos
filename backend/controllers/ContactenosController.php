@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\Contactenos;
+use backend\models\Contactenos;
 use backend\models\ContactenosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

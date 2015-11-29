@@ -27,8 +27,10 @@ class Productos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'imagen'], 'required'],
-            [['nombre', 'imagen'], 'string', 'max' => 128]
+            [['nombre'], 'required'],
+            [['imagen'], 'required', 'on' => 'create'],
+            [['nombre', 'imagen'], 'string', 'max' => 128],
+            [['imagen'], 'file', 'extensions' => 'jpg, jpeg, png'],
         ];
     }
 
