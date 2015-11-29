@@ -52,8 +52,12 @@ AppAsset::register($this);
             'url' => ['/productos/index'],
         ];
         $menuItems[] = [
-            'label' => 'Contactenos',
+            'label' => 'Contáctenos',
             'url' => ['/contactenos/index'],
+        ];
+        $menuItems[] = [
+            'label' => 'Configuración',
+            'url' => ['/configuracion/index'],
         ];
         $menuItems[] = [
             'label' => 'Salir (' . Yii::$app->user->identity->nombre . ')',
