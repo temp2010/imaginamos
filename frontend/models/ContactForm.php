@@ -2,18 +2,18 @@
 
 namespace frontend\models;
 
-use Yii;
+use backend\models\Contactenos;
 use yii\base\Model;
+use Yii;
 
 /**
  * ContactForm is the model behind the contact form.
  */
 class ContactForm extends Model
 {
-    public $name;
-    public $email;
-    public $subject;
-    public $body;
+    public $nombre;
+    public $correo;
+    public $mensaje;
     public $verifyCode;
 
     /**
@@ -23,9 +23,9 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            [['nombre', 'correo', 'mensaje'], 'required'],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['correo', 'email'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
@@ -37,11 +37,10 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => 'Nombre:',
-            'email' => 'Correo electronico:',
-            'subject' => 'Asunto:',
-            'body' => 'Mensaje:',
-            'verifyCode' => 'Digito de verificacion:',
+            'nombre' => 'Nombre:',
+            'correo' => 'Correo electrónico:',
+            'mensaje' => 'Mensaje:',
+            'verifyCode' => 'Digito de verificación:',
         ];
     }
 
@@ -55,9 +54,22 @@ class ContactForm extends Model
     {
         return Yii::$app->mailer->compose()
             ->setTo($email)
-            ->setFrom([$this->email => $this->name])
-            ->setSubject($this->subject)
-            ->setTextBody($this->body)
+            ->setFrom([$this->correo => $this->nombre])
+            ->setSubject("Contactenos")
+            ->setTextBody($this->mensaje)
             ->send();
+    }
+
+    public function register()
+    {
+        $contactenos = new Contactenos();
+        $contactenos->nombre = $this->nombre;
+        $contactenos->correo = $this->correo;
+        $contactenos->mensaje = $this->mensaje;
+        if ($contactenos->save()) {
+                return $contactenos;
+            }
+
+        return null;
     }
 }

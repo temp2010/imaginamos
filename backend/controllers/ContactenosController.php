@@ -32,6 +32,10 @@ class ContactenosController extends Controller
      */
     public function actionIndex()
     {
+        if (\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $searchModel = new ContactenosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

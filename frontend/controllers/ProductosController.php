@@ -1,19 +1,18 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use app\models\Configuracion;
-use backend\models\ContfiguracionSearch;
+use app\models\Productos;
+use frontend\models\ProductosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
- * ConfiguracionController implements the CRUD actions for Configuracion model.
+ * ProductosController implements the CRUD actions for Productos model.
  */
-class ConfiguracionController extends Controller
+class ProductosController extends Controller
 {
     public function behaviors()
     {
@@ -28,16 +27,12 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Lists all Configuracion models.
+     * Lists all Productos models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if (\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $searchModel = new ContfiguracionSearch();
+        $searchModel = new ProductosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +42,7 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Displays a single Configuracion model.
+     * Displays a single Productos model.
      * @param integer $id
      * @return mixed
      */
@@ -59,13 +54,13 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Creates a new Configuracion model.
+     * Creates a new Productos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Configuracion();
+        $model = new Productos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -77,7 +72,7 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Updates an existing Configuracion model.
+     * Updates an existing Productos model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,12 +80,8 @@ class ConfiguracionController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $picture = UploadedFile::getInstance($model, 'parametro');
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->parametro = "banner.png";
-            $picture->saveAs(\Yii::$app->basePath.'/../frontend/web/imagenes/' . $model->parametro);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -100,7 +91,7 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Deletes an existing Configuracion model.
+     * Deletes an existing Productos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +104,15 @@ class ConfiguracionController extends Controller
     }
 
     /**
-     * Finds the Configuracion model based on its primary key value.
+     * Finds the Productos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Configuracion the loaded model
+     * @return Productos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Configuracion::findOne($id)) !== null) {
+        if (($model = Productos::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

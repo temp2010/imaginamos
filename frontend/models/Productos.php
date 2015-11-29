@@ -1,25 +1,24 @@
 <?php
 
-namespace backend\models;
+namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "Contactenos".
+ * This is the model class for table "Productos".
  *
  * @property integer $id
  * @property string $nombre
- * @property string $correo
- * @property string $mensaje
+ * @property string $imagen
  */
-class Contactenos extends \yii\db\ActiveRecord
+class Productos extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'Contactenos';
+        return 'Productos';
     }
 
     /**
@@ -28,9 +27,8 @@ class Contactenos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'correo', 'mensaje'], 'required'],
-            [['mensaje'], 'string'],
-            [['nombre', 'correo'], 'string', 'max' => 128]
+            [['nombre', 'imagen'], 'required'],
+            [['nombre', 'imagen'], 'string', 'max' => 128]
         ];
     }
 
@@ -42,8 +40,7 @@ class Contactenos extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'correo' => 'Correo',
-            'mensaje' => 'Mensaje',
+            'imagen' => 'Imagen',
         ];
     }
 }

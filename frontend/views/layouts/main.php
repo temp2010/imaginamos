@@ -36,7 +36,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Inicio', 'url' => ['/site/index']],
+        ['label' => 'Catálogo', 'url' => ['/productos/index']],
         ['label' => 'Contactenos', 'url' => ['/site/contact']],
     ];
 /*

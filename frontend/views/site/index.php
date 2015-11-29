@@ -10,11 +10,4 @@ $this->title = 'My Yii Application';
         <h1>Prueba tecnica Imaginemos!</h1>
     </div>
 
-    <div class="body-content">
-
-        <div class="row">
-             <h2>Catalogo de Productos</h2>
-        </div>
-
-    </div>
 </div>
